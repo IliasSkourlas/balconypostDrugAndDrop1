@@ -1,4 +1,4 @@
-////////////////////////////////////////////for BALCONYPOST
+////////////////////////////////////////////BALCONYPOST
 
 //////////////////////
 var database;
@@ -445,19 +445,11 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
     for (let i = 0; i < textArray.length; i++) {
       textArray[i].newTextArea.attribute("style","display:none");
     }
-
     logdIn = true;
     userId = firebaseUser.uid;
     print(userId)
     loadDefaultMemory();
-    // document.getElementById("txtEmail").hidden = true;
-    // document.getElementById("txtPassword").hidden = true;
-    // document.getElementById("btnLogin").hidden = true;
-    // document.getElementById("btnSignUp").hidden = true;
-
-    // document.getElementById("btnLogout").hidden = false;
   }
-
   //UNSUCCESSFUL LOGED IN
   else{
     console.log("NOT LOGED IN");
@@ -466,33 +458,36 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
     for (let i = 0; i < textArray.length; i++) {
       textArray[i].newTextArea.attribute("style","display:none");
     }
-    //get  USER from url 
+    //get  Memory from url 
+    let p = getUrlParameters();
+    newMemory = p.substring(p.indexOf("-") + 1, p.length)
+    if(!isNaN(newMemory) && newMemory !== ""){
+      memoryFromUrl = true;
+      print(">>>>memory from URL: " + newMemory)
+    }else if(newMemory === null){
+      print("NULL")
+    }
+    else{
+      memoryFromUrl = false;
+    }
 
+    ///get  USER from url 
+    let userNameFromUrl;
+    if(!p.includes("-")){
+      userNameFromUrl = p.substring(1);
+    }else{
+      userNameFromUrl = p.substring(1, p.indexOf("-"))
+    }
+    print("name "+ userNameFromUrl)
     //1st read members and if members.name = xxx 
-    if(getUrlParameters() === "?kevi" || getUrlParameters() === "?Kevi" ||  getUrlParameters() === "?KEVI" || getUrlParameters() === "?KEVI"){
-      //kevi
+    if(userNameFromUrl === "kevi" || userNameFromUrl === "Kevi" || userNameFromUrl === "KEVI"){
       console.log("user: KEVI");
       userId = "ojA8Hvl5LIdsIHLlciFRYijtnag1";
       loadDefaultMemory();
     }
     else {
-      //ilias
       console.log("START UP PAGE")
       userId = "IbAWZbY3YbTD4Ux6rHelKThP4Cg2";
-      let p = getUrlParameters();
-
-      newMemory = p.substring(p.indexOf("-") + 1, p.length)
-
-      if(!isNaN(newMemory) && newMemory !== ""){
-        memoryFromUrl = true;
-        print(">>>>memory from URL: " + newMemory)
-      }else if(newMemory === null){
-        print("NULL")
-      }
-      else{
-        memoryFromUrl = false;
-      }
-    
       loadDefaultMemory();
     }
 
@@ -1092,8 +1087,7 @@ function keyPressed(){
       signInButton.position(40, 40);
       signUpButton.position(320, 40);
       signInButton.show();
-      signUpButton.show();
-
+      // signUpButton.show();//only for now<<<<<<<
       loginControl = false;
     }
     else if(keyCode === 17 && !loginControl){
