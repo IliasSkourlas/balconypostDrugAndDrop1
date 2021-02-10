@@ -485,6 +485,11 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
       userId = "ojA8Hvl5LIdsIHLlciFRYijtnag1";
       loadDefaultMemory();
     }
+    else if(userNameFromUrl === "anna" || userNameFromUrl === "Anna" || userNameFromUrl === "ANNA"){
+      console.log("user: ANNA");
+      userId = "Vl1kTu2micbe4aOMyOIJ9YniAUo2";
+      loadDefaultMemory();
+    }
     else {
       console.log("START UP PAGE")
       userId = "IbAWZbY3YbTD4Ux6rHelKThP4Cg2";
@@ -1087,7 +1092,7 @@ function keyPressed(){
       signInButton.position(40, 40);
       signUpButton.position(320, 40);
       signInButton.show();
-      // signUpButton.show();//only for now<<<<<<<
+      signUpButton.show();//only for now<<<<<<<
       loginControl = false;
     }
     else if(keyCode === 17 && !loginControl){
@@ -1236,7 +1241,7 @@ function toSignInFunction(){
   signInButton.hide();
   submitSignUpButton.hide();
   nameInput.hide();
-  // signUpButton.show();
+  signUpButton.show();
   emailInput.show();
   signUpButton.position(newWidth - 270, 40);
   passwordInput.show();
@@ -2086,5 +2091,13 @@ function mousePressed() {
 //
 //
 //different browsers >> safari (when cotrol cant see images from firbase)
+//safari esc opens text/ when logdin NOT always
+//Mozila = key
 
 
+
+
+//NEW UTILITIES
+//delete alert : are you sure?
+//vizualy mute image to...
+//if Title in link is  the color is for frame
