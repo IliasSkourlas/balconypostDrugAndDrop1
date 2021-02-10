@@ -1236,7 +1236,7 @@ function toSignInFunction(){
   signInButton.hide();
   submitSignUpButton.hide();
   nameInput.hide();
-  signUpButton.show();
+  // signUpButton.show();
   emailInput.show();
   signUpButton.position(newWidth - 270, 40);
   passwordInput.show();
@@ -1258,7 +1258,7 @@ function toSignUpFunction(){
 //////////////////////////////////////////////TEXT
 function keyTyped(){
   chooseMemoryWithKeys();
-  if(logdIn && !changeSize  && keyCode !== 13 && keyCode !== 187 && keyCode !== 189 && !linkControl ){
+  if(logdIn && !changeSize  && keyCode !== 13 && keyCode !== 187 && keyCode !== 189 && keyCode !== 49 && keyCode !== 50 && keyCode !== 51 && keyCode !== 52 && keyCode !== 53 && !linkControl ){
     writeText = true;
     textButton.show();
     inputTextSize.show();
@@ -2086,7 +2086,5 @@ function mousePressed() {
 //
 //
 //different browsers >> safari (when cotrol cant see images from firbase)
-
-
 
 
