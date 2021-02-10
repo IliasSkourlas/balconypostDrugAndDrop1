@@ -1,17 +1,5 @@
-////////////////////////////////////////////BALCONYPOST
-//press P to print the array of the positions....
-//click upload to upload from Database
-//click load to load to Database
-//hover to see index
-//BACKSPACE DELETES 
-//ENTER (while Write is off) imports from storage art to Card (the file where the cursor stand on)
-//ENTER (while Write is on) to write new text.
-//storage button logs a list of storage art refrence and a preview at control window
-//CONTROL on off control window
-//Press CONTROL and Click something on preview the ENTER on card to impot it to canvas
-//TEXT with "T" 
-//LINK with "ALT" (swich off to click)
-//TAB
+////////////////////////////////////////////for BALCONYPOST
+
 //////////////////////
 var database;
 let logdIn = false;
@@ -97,6 +85,10 @@ let cursorControl = "arrow";
 let memory = 1;
 let myScroll = false;
 
+let memoryFromUrl = false;
+let newMemory;
+////////////////////////////////////////////Url Parameters
+getUrlParameters();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////SETUP
@@ -458,12 +450,12 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
     userId = firebaseUser.uid;
     print(userId)
     loadDefaultMemory();
-    document.getElementById("txtEmail").hidden = true;
-    document.getElementById("txtPassword").hidden = true;
-    document.getElementById("btnLogin").hidden = true;
-    document.getElementById("btnSignUp").hidden = true;
+    // document.getElementById("txtEmail").hidden = true;
+    // document.getElementById("txtPassword").hidden = true;
+    // document.getElementById("btnLogin").hidden = true;
+    // document.getElementById("btnSignUp").hidden = true;
 
-    document.getElementById("btnLogout").hidden = false;
+    // document.getElementById("btnLogout").hidden = false;
   }
 
   //UNSUCCESSFUL LOGED IN
@@ -474,11 +466,36 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
     for (let i = 0; i < textArray.length; i++) {
       textArray[i].newTextArea.attribute("style","display:none");
     }
-    //DEFAULT USER <<< use diffrent implementation
-    // userId = "ojA8Hvl5LIdsIHLlciFRYijtnag1";
-    userId = "IbAWZbY3YbTD4Ux6rHelKThP4Cg2";
+    //get  USER from url 
 
-    loadDefaultMemory();
+    //1st read members and if members.name = xxx 
+    if(getUrlParameters() === "?kevi" || getUrlParameters() === "?Kevi" ||  getUrlParameters() === "?KEVI" || getUrlParameters() === "?KEVI"){
+      //kevi
+      console.log("user: KEVI");
+      userId = "ojA8Hvl5LIdsIHLlciFRYijtnag1";
+      loadDefaultMemory();
+    }
+    else {
+      //ilias
+      console.log("START UP PAGE")
+      userId = "IbAWZbY3YbTD4Ux6rHelKThP4Cg2";
+      let p = getUrlParameters();
+
+      newMemory = p.substring(p.indexOf("-") + 1, p.length)
+
+      if(!isNaN(newMemory) && newMemory !== ""){
+        memoryFromUrl = true;
+        print(">>>>memory from URL: " + newMemory)
+      }else if(newMemory === null){
+        print("NULL")
+      }
+      else{
+        memoryFromUrl = false;
+      }
+    
+      loadDefaultMemory();
+    }
+
     
     logdIn = false;
     controlWindow = false;
@@ -1214,6 +1231,11 @@ function hideTextWindow(){
   inputTextOpacity.hide();
   temporaryTextArea.hide();
 }
+//from URL
+function getUrlParameters(){
+  return window.location.search;
+}
+
 ////////////////////////////SIGN
 function toSignInFunction(){
   // signInMenu = true;
@@ -1544,7 +1566,6 @@ function saveDefaultMemory(){
   });
 }
 function loadDefaultMemory(){
-  print("loadDefaultMemory")
   const defaultMemory = firebase.database().ref(`users/${userId}/defaultMemory`); 
   defaultMemory.once('value', gotDefaultMemory, errDefaultMemory);
 
@@ -1894,17 +1915,24 @@ function gotbackgroundColor(data){
 
 }
 function gotDefaultMemory(data){
-  if(data.val() !== null){
-    let info = data.val();
-    memory = info.defaultMemory;
-    
-    print("memory " + memory)
-    loadFromFirebase();
-  }else{
-    print(data)
-    console.log("DATABASE IS EMPTY");
-    
+  // memoryFromUrl implication should not come here to be evaluated but... for now ok 
+  if(!memoryFromUrl){
 
+    if(data.val() !== null){
+      let info = data.val();
+      memory = info.defaultMemory;
+      
+      print("memory " + memory);
+      loadFromFirebase();
+    }else{
+      print(data)
+      console.log("DATABASE IS EMPTY");
+    }
+
+  }else{
+    memory = newMemory;
+    print("memory " + memory);
+    loadFromFirebase();
   }
 
 }
@@ -2067,22 +2095,4 @@ function mousePressed() {
 
 
 
-//POSibILITIES
-//transparant vale filter infront all
-//common cards
-//ANIMATIONS
-//Time
-//frames class
-//write allway edible
-//Responsivnes: 4 diffrent vertions for pc's
-//at text when scroling it comes infront!
-//Variable fonts quality as in Axis Praxis
-//diffrent fast versions of your card//you give your card to him .?. give him this version
-//generate QR code. Your site can be passed from one mobyle to an other.
-//TITLES like in the movies (think star wars or ....)
-//Ναυμαχία. hiden pop ups. You have to use your mouse or...who knows
 
-//NEW UTILITIES
-//delete alert : are you sure?
-//vizualy mute image to...
-//if Title in link is  the color is for frame
