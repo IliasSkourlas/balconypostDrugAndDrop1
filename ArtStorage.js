@@ -18,10 +18,10 @@ class ArtStorage{
             artArrayIndex = index;
             arrayInfoName = artArray[index].name;
             print(this.name)
-            print("yP "+this.yPosition)
 
         }
     }
     
 }
+
 
